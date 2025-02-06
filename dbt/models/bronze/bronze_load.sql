@@ -1,0 +1,1 @@
+SELECT * FROM {{ source('public', 'tabela_bronze_2023_05') }}

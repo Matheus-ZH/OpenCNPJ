@@ -1,0 +1,15 @@
+# Usa uma imagem base do Python, pois DBT é um pacote Python
+FROM python:3.9-slim
+
+# Instala DBT e o plugin para PostgreSQL
+RUN pip install dbt-core dbt-postgres
+
+# Cria um diretório de trabalho para o DBT
+#WORKDIR /dbt
+WORKDIR /home/matz/Documentos/Projetos/OpenCNPJ/dbt/models
+# Copia o diretório de configurações e os modelos DBT do host para o container
+COPY dbt_project.yml /home/matz/Documentos/Projetos/OpenCNPJ/dbt/dbt_project.yml
+#COPY models /dbt/models
+
+# Define o entrypoint para facilitar a execução de comandos DBT
+ENTRYPOINT ["dbt"]

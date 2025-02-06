@@ -1,0 +1,11 @@
+OpenCNPJ:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: docker-db-1  # O nome do serviço PostgreSQL no Docker Compose
+      user: user
+      password: password
+      dbname: cnpj_db
+      schema: public  # ou outro esquema desejado
+      threads: 4

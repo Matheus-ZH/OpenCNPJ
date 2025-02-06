@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# DBT
+target/
+logs/
+
+# Docker
+.docker/
+
+# Dados
+data/*

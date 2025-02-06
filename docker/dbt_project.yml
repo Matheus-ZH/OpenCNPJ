@@ -1,0 +1,23 @@
+# Nome do projeto DBT
+name: 'OpenCNPJ'
+
+# Versão do projeto
+version: '1.0'
+
+# Diretório dos modelos (SQL e macros)
+model-paths: ["models"]
+
+# Diretório dos dados (para seeds, se você tiver algum)
+data-paths: ["data"]
+
+# Diretório de snapshots (se houver)
+snapshot-paths: ["snapshots"]
+
+# Esquema de destino e banco de dados (necessário definir no profiles.yml para se conectar ao PostgreSQL)
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_modules"
+
+# Configurações específicas
+profile: 'open_cnpj'  # Nome do perfil que será definido no arquivo profiles.yml para conexão com o banco
