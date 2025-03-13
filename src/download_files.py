@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-import os, time
+import os, time, json
 
 def navega_pastas(url_cnpj: str) -> list:
     """
@@ -40,46 +40,61 @@ def captura_links(url_cnpj: str) -> list:
     
     return links
 
-def download(links: list, path: str ,mes_arq: str):
-    tmp_ini = time.time()
+def download(file_urls: list, root_dir: str, month_folder: str):
+    """
+    Faz o download de uma lista de arquivos a partir de URLs e os salva em uma pasta específica.
     
-    for link in links[0:]:
-        tmp_inicial_down = time.time()
-        pasta_nova = os.path.join(path, mes_arq)
-        if os.path.exists(pasta_nova):
-            print(f"Arquivo já existe em {pasta_nova}. Pulando o download.")
-            dict = {"folder_nm": pasta_nova,
-                    "file_nm": link[link.rfind("/")+1:]}
-            with open(f"files/dados_baixados.json", "w") as outfile:
-                outfile.write(dict)
-            return
-        else:
-            nome_arquivo = link[link.rfind("/")+1:]
-            print(f"Realizando o Download do arquivo {nome_arquivo}")
-            response = requests.get(link)
-            time.sleep(3)
-            if not os.path.exists(pasta_nova):
-                try:
-                    print("Criando diretorio..")
-                    os.makedirs(pasta_nova)
-                except OSError:
-                    pass
+    Parâmetros:
+    - file_urls (list): Lista de URLs dos arquivos a serem baixados.
+    - root_dir (str): Diretório base onde os arquivos serão armazenados.
+    - month_folder (str): Nome da pasta do mês onde os arquivos serão organizados.
 
-            with open(f"data/{mes_arq}/{nome_arquivo}", "wb") as file:
-                    file.write(response.content)
-                    print(f"Arquivo baixado {nome_arquivo}")
-                    tmp_final_down = time.time()
-            
-            dict = {"folder_nm": pasta_nova,
-                    "file_nm": nome_arquivo}
-            
-            with open(f"files/dados_baixados.json", "w") as outfile:
-                outfile.write(dict)
+    O script verifica se um arquivo já existe antes de baixá-lo. Caso o arquivo já esteja presente, 
+    ele apenas registra essa informação no log e pula para o próximo. Se o download for bem-sucedido, 
+    o arquivo é salvo e sua informação é registrada em um log JSON.
 
-        print(f"{tmp_final_down - tmp_inicial_down} segundos")
+    O tempo de execução de cada download e o tempo total da operação são exibidos no console.
+    """
+    
+    start_time = time.time()  # Marca o tempo inicial
 
-    # descompactar(path)
+    download_log_path = "/home/matz/Documentos/Projetos/OpenCNPJ/files/dados_baixados.json"
+    target_folder = os.path.join(root_dir, month_folder)  
+    os.makedirs(target_folder, exist_ok=True)  # Garante que o diretório existe
 
-    tmp_final = time.time()
+    for url in file_urls:
+        file_start_time = time.time()
 
-    print(f"{tmp_final - tmp_ini} segundos")
+        file_name = os.path.basename(url)  
+        file_path = os.path.join(target_folder, file_name)
+
+        # Se o arquivo já existe, registra e pula
+        if os.path.exists(file_path):
+            print(f"Arquivo já existe: {file_path}. Pulando o download.")
+            with open(download_log_path, "a") as log_file:
+                json.dump({"folder_nm": target_folder, "file_nm": file_name}, log_file)
+                log_file.write("\n")
+            continue
+
+        # Tenta baixar o arquivo
+        print(f"Baixando {file_name}...")
+        try:
+            response = requests.get(url, timeout=30)  
+            response.raise_for_status()  # Garante que o request foi bem-sucedido
+        except requests.RequestException as e:
+            print(f"Erro ao baixar {file_name}: {e}")
+            continue  # Passa para o próximo arquivo
+
+        # Salva o arquivo baixado
+        with open(file_path, "wb") as file:
+            file.write(response.content)
+            print(f"Arquivo baixado: {file_name}")
+
+        # Registra no log
+        with open(download_log_path, "a") as log_file:
+            json.dump({"folder_nm": target_folder, "file_nm": file_name}, log_file)
+            log_file.write("\n")
+
+        print(f"{time.time() - file_start_time:.2f} segundos para baixar {file_name}")
+
+    print(f"Tempo total: {time.time() - start_time:.2f} segundos")

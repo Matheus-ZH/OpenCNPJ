@@ -13,13 +13,14 @@ def descompactar(path: str) -> str:
         for base_dados in os.listdir(mes):
             try:
                 if base_dados.endswith('.zip'):
-                    full_path = os.path.join(path, base_dados)
-            
+                    full_path = os.path.join(mes, base_dados)
                     with zipfile.ZipFile(full_path, 'r') as zip:
-                        zip.extractall(path)
+                        despejar = os.mkdir(os.path.join(mes, base_dados.split('.')[0]))
+                        zip.extractall(despejar)
                     os.remove(full_path)
             except Exception as exc:
                 print(f"Erro {type(exc)} ao Descompactar a pasta: {full_path}")
+                continue
 
     """
     Cenários - Realizei o download de 60gb de arquivos zipados.
