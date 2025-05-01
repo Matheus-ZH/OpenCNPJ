@@ -2,25 +2,13 @@ services:
   db:
     image: postgres:13
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: cnpj_db
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     volumes:
       - pgdata:/var/lib/postgresql/data  # Persistência dos dados
     ports:
       - "5432:5432"  # Porta exposta para o PostgreSQL
-
-  dbt:
-    build:
-      context: .
-      dockerfile: Dockerfile.dbt
-    environment:
-      - DBT_PROFILES_DIR=/dbt  # Define o diretório de configuração do DBT
-      - DATABASE_URL=postgresql://user:password@db:5432/cnpj_db  # String de conexão com o PostgreSQL
-    volumes:
-      - ./dbt:/dbt  # Mapeia o diretório DBT para acessar os arquivos de configuração e modelos
-    depends_on:
-      - db
-
+      
 volumes:
   pgdata:

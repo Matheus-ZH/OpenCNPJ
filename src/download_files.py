@@ -2,7 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import os, time, json
 
-def navega_pastas(url_cnpj: str) -> list:
+def navega_pastas(
+        url_cnpj: str) -> list:
     """
     Recebe uma URL da pasta principal da receita federal.
 
@@ -21,7 +22,9 @@ def navega_pastas(url_cnpj: str) -> list:
     
     return links
 
-def captura_links(url_cnpj: str) -> list:
+def captura_links(
+        url_cnpj: str
+    ) -> list:
     """
     Recebe uma URL da pasta da receita federal.
 
@@ -40,7 +43,11 @@ def captura_links(url_cnpj: str) -> list:
     
     return links
 
-def download(file_urls: list, root_dir: str, month_folder: str):
+def download(
+        file_urls: list,
+        root_dir: str,
+        month_folder: str
+    ) -> None:
     """
     Faz o download de uma lista de arquivos a partir de URLs e os salva em uma pasta específica.
     
@@ -95,6 +102,6 @@ def download(file_urls: list, root_dir: str, month_folder: str):
             json.dump({"folder_nm": target_folder, "file_nm": file_name}, log_file)
             log_file.write("\n")
 
-        print(f"{time.time() - file_start_time:.2f} segundos para baixar {file_name}")
+        print(f"{time.time() - file_start_time:.2f} segundos para baixar {file_name} ou {(time.time() - file_start_time) // 60} minutos e {((time.time() - file_start_time) % 60):.2f} segundos")
 
     print(f"Tempo total: {time.time() - start_time:.2f} segundos")

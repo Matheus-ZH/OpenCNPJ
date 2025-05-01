@@ -2,13 +2,13 @@ import pandas as pd
 import psycopg2
 from sqlalchemy import create_engine
 
-engine = create_engine('postgresql://user:password@localhost:5432/cnpj_db')
+engine = create_engine('postgresql://:@:5432/')
 
-conn = psycopg2.connect(host="localhost",
-                        port="5432",
-                        database="cnpj_db",
-                        user="user",
-                        password="password")
+conn = psycopg2.connect(host="",
+                        port="",
+                        database="",
+                        user="",
+                        password="")
 cur = conn.cursor()
 
 def load_csv_db(path: str, table_name: str) -> pd.DataFrame:

@@ -16,11 +16,11 @@ def main():
     for folder in url_folder[1:]:
         file_urls = captura_links(url_cnpj= folder)
         month_folder = folder.split("/")[5]
-        download(file_urls, root_dir, month_folder)
+        # download(file_urls, root_dir, month_folder)
 
     # Descompactando
 
-    # descompactar(data_dir)
+    descompactar(data_dir)
 
 if __name__ == "__main__":
     main()

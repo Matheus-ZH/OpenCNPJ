@@ -1,7 +1,9 @@
 import zipfile
-import os
+import os, re
 
-def descompactar(path: str) -> str:
+def descompactar(
+        path: str
+    ) -> None:
     """
     Recebe um caminho da pasta que estará os arquivos baixados.
     E descompacta todos os arquivos zip e após isso deleta o arquivo zip,
@@ -15,8 +17,13 @@ def descompactar(path: str) -> str:
                 if base_dados.endswith('.zip'):
                     full_path = os.path.join(mes, base_dados)
                     with zipfile.ZipFile(full_path, 'r') as zip:
-                        despejar = os.mkdir(os.path.join(mes, base_dados.split('.')[0]))
-                        zip.extractall(despejar)
+                        name_folder = re.match(r"\D+", base_dados.split('.')[0])
+                        path_new_folder = os.path.join(mes, name_folder.group(0))
+                        if os.path.exists(path_new_folder):
+                            zip.extractall(path_new_folder)
+                        else:    
+                            os.mkdir(path_new_folder)
+                            zip.extractall(path_new_folder)
                     os.remove(full_path)
             except Exception as exc:
                 print(f"Erro {type(exc)} ao Descompactar a pasta: {full_path}")

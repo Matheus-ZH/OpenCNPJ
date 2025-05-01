@@ -1,0 +1,360 @@
+{
+    "BRONZE_CNAES": {
+      "CODIGO": {
+        "type": "Integer",
+        "nullable": false,
+        "index": false,
+        "comment": "Código da Classificação Nacional de Atividades Econômicas"
+      },
+      "DESCRICAO": {
+        "type": "Text",
+        "nullable": false,
+        "comment": "Descrição detalhada da atividade econômica"
+      }
+    },
+    "BRONZE_SOCIOS": {
+      "CNPJ_EMPRESA": {
+        "type": "String(14)",
+        "nullable": false,
+        "index": false,
+        "comment": "CNPJ da empresa à qual o sócio está vinculado"
+      },
+      "IDENTIFICADOR_SOCIO": {
+        "type": "Integer",
+        "nullable": false,
+        "comment": "Código que identifica o tipo de sócio (Pessoa Jurídica ou Pessoa Física)"
+      },
+      "NOME_SOCIO_RAZAO_SOCIAL": {
+        "type": "String(150)",
+        "nullable": false,
+        "comment": "Nome ou razão social do sócio"
+      },
+      "CNPJ_CPF_SOCIO": {
+        "type": "String(14)",
+        "nullable": true,
+        "index": false,
+        "comment": "CPF do sócio (se pessoa física) ou CNPJ (se pessoa jurídica)"
+      },
+      "QUALIFICACAO_SOCIO": {
+        "type": "Integer",
+        "nullable": false,
+        "comment": "Código da qualificação do sócio"
+      },
+      "DATA_ENTRADA_SOCIEDADE": {
+        "type": "Date",
+        "nullable": true,
+        "comment": "Data de entrada do sócio na sociedade"
+      },
+      "PAIS_ORIGEM": {
+        "type": "Integer",
+        "nullable": true,
+        "comment": "Código do país de origem do sócio estrangeiro"
+      },
+      "CPF_REPRESENTANTE_LEGAL": {
+        "type": "String(11)",
+        "nullable": true,
+        "comment": "CPF do representante legal (se sócio estrangeiro pessoa física)"
+      },
+      "NOME_REPRESENTANTE_LEGAL": {
+        "type": "String(150)",
+        "nullable": true,
+        "comment": "Nome do representante legal (se sócio estrangeiro pessoa física)"
+      },
+      "QUALIFICACAO_REPRESENTANTE_LEGAL": {
+        "type": "Integer",
+        "nullable": true,
+        "comment": "Qualificação do representante legal (se sócio estrangeiro pessoa física)"
+      },
+      "FAIXA_ETARIA": {
+        "type": "Integer",
+        "nullable": true,
+        "comment": "Código correspondente à faixa etária do sócio"
+        }
+    },
+    "BRONZE_EMPRESAS": {
+      "CNPJ_BASICO": {
+        "type": "String(8)",
+        "nullable": false,
+        "index": false,
+        "comment": "Oito primeiros dígitos do CNPJ"
+      },
+      "RAZAO_SOCIAL": {
+        "type": "String(150)",
+        "nullable": false,
+        "index": false,
+        "comment": "Nome empresarial da pessoa jurídica"
+      },
+      "NATUREZA_JURIDICA": {
+        "type": "Integer",
+        "nullable": false,
+        "index": false,
+        "comment": "Código da natureza jurídica"
+      },
+      "QUALIFICACAO_RESPONSAVEL": {
+        "type": "Integer",
+        "nullable": false,
+        "index": false,
+        "comment": "Qualificação da pessoa física responsável pela empresa"
+      },
+      "CAPITAL_SOCIAL": {
+        "type": "String(32)",
+        "default": "0,00",
+        "index": false,
+        "comment": "Capital social da empresa"
+      },
+      "PORTE": {
+        "type": "String(2)",
+        "nullable": true,
+        "index": false,
+        "comment": "Código do porte da empresa"
+      },
+      "ENTE_FEDERATIVO_RESPONSAVEL": {
+        "type": "String(70)",
+        "nullable": true,
+        "index": false,
+        "comment": "Nome do ente federativo responsável (para naturezas jurídicas específicas)"
+      }
+    },
+    "BRONZE_ESTABELECIMENTOS": {
+      "CNPJ_BASICO": {
+        "type": "String(8)",
+        "nullable": false,
+        "index": false,
+        "comment": "Oito primeiros dígitos do CNPJ da empresa"
+      },
+      "CNPJ_ORDEM": {
+        "type": "String(4)",
+        "nullable": false,
+        "index": false,
+        "comment": "Quatro dígitos seguintes do CNPJ que identificam a ordem do estabelecimento"
+      },
+      "CNPJ_DV": {
+        "type": "String(2)",
+        "nullable": false,
+        "comment": "Dois últimos dígitos do CNPJ (dígito verificador)"
+      },
+      "IDENTIFICADOR_MATRIZ_FILIAL": {
+        "type": "String(2)",
+        "nullable": false,
+        "comment": "Código que identifica se o estabelecimento é matriz ou filial"
+      },
+      "NOME_FANTASIA": {
+        "type": "String(150)",
+        "nullable": true,
+        "index": false,
+        "comment": "Nome fantasia do estabelecimento"
+      },
+      "SITUACAO_CADASTRAL": {
+        "type": "String(2)",
+        "nullable": false,
+        "comment": "Código da situação cadastral do estabelecimento"
+      },
+      "DATA_SITUACAO_CADASTRAL": {
+        "type": "Date",
+        "nullable": true,
+        "comment": "Data em que o estabelecimento se encontra na situação cadastral atual"
+      },
+      "MOTIVO_SITUACAO_CADASTRAL": {
+        "type": "String(10)",
+        "nullable": true,
+        "comment": "Código do motivo da situação cadastral"
+      },
+      "NOME_CIDADE_EXTERIOR": {
+        "type": "String(70)",
+        "nullable": true,
+        "comment": "Nome da cidade no exterior (se aplicável)"
+      },
+      "PAIS": {
+        "type": "String(5)",
+        "nullable": true,
+        "comment": "Código do país (se estabelecimento no exterior)"
+      },
+      "DATA_INICIO_ATIVIDADE": {
+        "type": "Date",
+        "nullable": true,
+        "comment": "Data de início da atividade do estabelecimento"
+      },
+      "CNAE_PRINCIPAL": {
+        "type": "Integer",
+        "nullable": false,
+        "index": false,
+        "comment": "Código da Classificação Nacional de Atividades Econômicas principal"
+      },
+      "CNAE_SECUNDARIO_1": {
+        "type": "Integer",
+        "nullable": true,
+        "index": false,
+        "comment": "Código da Classificação Nacional de Atividades Econômicas secundária 1"
+      },
+      "TIPO_LOGRADOURO": {
+        "type": "String(20)",
+        "nullable": true,
+        "comment": "Tipo do logradouro"
+      },
+      "LOGRADOURO": {
+        "type": "String(60)",
+        "nullable": true,
+        "comment": "Nome do logradouro"
+      },
+      "NUMERO": {
+        "type": "String(6)",
+        "nullable": true,
+        "comment": "Número do logradouro"
+      },
+      "COMPLEMENTO": {
+        "type": "String(156)",
+        "nullable": true,
+        "comment": "Complemento do endereço"
+      },
+      "BAIRRO": {
+        "type": "String(50)",
+        "nullable": true,
+        "comment": "Bairro"
+      },
+      "CEP": {
+        "type": "String(8)",
+        "nullable": true,
+        "comment": "Código de Endereçamento Postal"
+      },
+      "UF": {
+        "type": "String(2)",
+        "nullable": true,
+        "comment": "Sigla da Unidade Federativa"
+      },
+      "MUNICIPIO": {
+        "type": "Integer",
+        "nullable": true,
+        "comment": "Código do município"
+      },
+      "DDD1": {
+        "type": "String(5)",
+        "nullable": true,
+        "comment": "Código de Discagem Direta à Distância 1"
+      },
+      "TELEFONE1": {
+        "type": "String(30)",
+        "nullable": true,
+        "comment": "Número de telefone 1"
+      },
+      "DDD2": {
+        "type": "String(5)",
+        "nullable": true,
+        "comment": "Código de Discagem Direta à Distância 2"
+      },
+      "TELEFONE2": {
+        "type": "String(30)",
+        "nullable": true,
+        "comment": "Número de telefone 2"
+      },
+      "DDD_FAX": {
+        "type": "String(5)",
+        "nullable": true,
+        "comment": "Código de Discagem Direta à Distância do fax"
+      },
+      "FAX": {
+        "type": "String(12)",
+        "nullable": true,
+        "comment": "Número do fax"
+      },
+      "EMAIL": {
+        "type": "String(115)",
+        "nullable": true,
+        "comment": "Endereço de correio eletrônico"
+      },
+      "SITUACAO_ESPECIAL": {
+        "type": "String(50)",
+        "nullable": true,
+        "comment": "Situação especial do estabelecimento"
+      },
+      "DATA_SITUACAO_ESPECIAL": {
+        "type": "Date",
+        "nullable": true,
+        "comment": "Data em que a empresa entrou em situação especial"
+      }
+    },
+    "BRONZE_DADOS_DO_SIMPLES": {
+      "CNPJ_BASICO": {
+        "type": "String(8)",
+        "nullable": false,
+        "comment": "Oito primeiros dígitos do CNPJ da empresa"
+      },
+      "OPCAO_SIMPLES": {
+        "type": "String(8)",
+        "nullable": true,
+        "comment": "Indicador da existência da opção pelo simples\n S - Sim\n N - Não\n EM BRANCO - OUTROS"
+      },
+      "DATA_OPCAO_SIMPLES": {
+        "type": "Date",
+        "nullable": false,
+        "comment": "Data de opção pelo simples"
+      },
+      "DATA_EXCLUSAO_SIMPLES": {
+        "type": "Date",
+        "nullable": false,
+        "comment": "Data de exclusão pelo simples"
+      },
+      "OPCAO_MEI": {
+        "type": "String(8)",
+        "nullable": false,
+        "comment": "Indicador da existência da opção pelo MEI\n S - Sim\n N - Não\n EM BRANCO - OUTROS"
+      },
+      "DATA_OPCAO_MEI": {
+        "type": "Date",
+        "nullable": false,
+        "comment": "Data de opção pelo MEI"
+      },
+      "DATA_EXCLUSAO_MEI": {
+        "type": "Date",
+        "nullable": false,
+        "comment": "Data de exclusão pelo MEI"
+      }
+    },
+    "BRONZE_PAISES": {
+      "CODIGO": {
+        "type": "Integer",
+        "nullable": false,
+        "comment": "Código do pais"
+        },
+      "DESCRICAO": {
+        "type": "String(32)",
+        "nullable": true,
+        "comment": "Nome do Pais"
+      }
+    },
+    "BRONZE_MUNICIPIOS": {
+      "CODIGO": {
+        "type": "Integer",
+        "nullable": false,
+        "comment": "Código do município"
+        },
+      "DESCRICAO": {
+        "type": "String(32)",
+        "nullable": true,
+        "comment": "Nome do município"
+      }
+    },
+    "BRONZE_QUALIFICACOES_DE_SOCIOS": {
+      "CODIGO": {
+        "type": "Integer",
+        "nullable": false,
+        "comment": "Código do da qualificação do Sócio"
+        },
+      "DESCRICAO": {
+        "type": "String(150)",
+        "nullable": true,
+        "comment": "Nome da qualificação do Sócio"
+      }
+    },
+    "BRONZE_NATUREZAS_JURIDICAS": {
+      "CODIGO": {
+        "type": "Integer",
+        "nullable": false,
+        "comment": "Código da Natureza jurídica"
+        },
+      "DESCRICAO": {
+        "type": "String(150)",
+        "nullable": true,
+        "comment": "Nome da Natureza jurídica"
+      }
+    }
+  }
